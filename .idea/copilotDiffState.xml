@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CopilotDiffPersistence">
+    <option name="pendingDiffs">
+      <map>
+        <entry key="$PROJECT_DIR$/src/main/java/com/chibao/edu/example_import_csv/dto/ImportJobStatusDto.java">
+          <value>
+            <PendingDiffInfo>
+              <option name="filePath" value="$PROJECT_DIR$/src/main/java/com/chibao/edu/example_import_csv/dto/ImportJobStatusDto.java" />
+              <option name="originalContent" value="package com.chibao.edu.example_import_csv.dto;&#10;&#10;import com.chibao.edu.example_import_csv.dto.ImportJobStatus;&#10;import lombok.AllArgsConstructor;&#10;import lombok.Data;&#10;import lombok.NoArgsConstructor;&#10;&#10;import java.util.UUID;&#10;&#10;@Data&#10;@NoArgsConstructor&#10;@AllArgsConstructor&#10;public class ImportJobStatusDto {&#10;    private UUID jobId;&#10;    private String status;&#10;    private int totalRows;&#10;    private int successCount;&#10;    private int failedCount;&#10;    private String errorReportPath; // or boolean hasErrors&#10;    private String message;&#10;&#10;    public static ImportJobStatusDto from(ImportJobStatus job) {&#10;        if (job == null) return null;&#10;        return new ImportJobStatusDto(&#10;                job.getId(),&#10;                job.getStatus() == null ? null : job.getStatus().name(),&#10;                job.getTotalRows(),&#10;                job.getSuccessCount(),&#10;                job.getFailedCount(),&#10;                job.getErrorReportPath(),&#10;                job.getMessage()&#10;        );&#10;    }&#10;}&#10;" />
+              <option name="updatedContent" value="package com.chibao.edu.example_import_csv.dto;&#10;&#10;import lombok.AllArgsConstructor;&#10;import lombok.Data;&#10;import lombok.NoArgsConstructor;&#10;&#10;import java.util.UUID;&#10;&#10;@Data&#10;@NoArgsConstructor&#10;@AllArgsConstructor&#10;public class ImportJobStatusDto {&#10;    private UUID jobId;&#10;    private String status;&#10;    private int totalRows;&#10;    private int successCount;&#10;    private int failedCount;&#10;    private String errorReportPath; // or boolean hasErrors&#10;    private String message;&#10;&#10;    public static ImportJobStatusDto from(ImportJobStatus job) {&#10;        if (job == null) return null;&#10;        return new ImportJobStatusDto(&#10;                job.getId(),&#10;                job.getStatus() == null ? null : job.getStatus().name(),&#10;                job.getTotalRows(),&#10;                job.getSuccessCount(),&#10;                job.getFailedCount(),&#10;                job.getErrorReportPath(),&#10;                job.getMessage()&#10;        );&#10;    }&#10;}" />
+            </PendingDiffInfo>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+</project>
