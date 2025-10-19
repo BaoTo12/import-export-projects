@@ -1,0 +1,46 @@
+# application-test.yml
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+
+  h2:
+    console:
+      enabled: true
+
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
+import:
+  batch:
+    chunk-size: 10
+    max-rows: 100
+    thread-pool-size: 2
+  allowed-extensions:
+    - csv
+    - xlsx
+  required-headers:
+    - firstName
+    - lastName
+    - dateOfBirth
+    - email
+    - phone
+  upload-dir: ./test-uploads
+
+logging:
+  level:
+    com.lab: DEBUG
+    org.springframework.batch: DEBUG

@@ -14,8 +14,6 @@ import java.util.UUID;
 public class ImportJob {
     @Id
     private UUID jobId;
-
-
     private String filename;
     private String filePath;
     private String status;

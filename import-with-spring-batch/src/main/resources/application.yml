@@ -1,0 +1,41 @@
+spring:
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  datasource:
+    url: jdbc:postgresql://localhost:5432/labdb
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+
+import:
+  batch:
+    chunk-size: 100
+    max-rows: 1000
+    thread-pool-size: 5
+  allowed-extensions:
+    - csv
+    - xlsx
+  required-headers:
+    - firstName
+    - lastName
+    - dateOfBirth
+    - email
+    - phone

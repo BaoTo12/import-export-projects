@@ -17,7 +17,6 @@ import java.util.Iterator;
 public class ExcelPatientReader implements ItemReader<PatientImportDTO> {
 
     private final Iterator<Row> rowIterator;
-    private int currentRowNum = 0;
 
     public ExcelPatientReader(InputStream inputStream) throws IOException {
         Workbook workbook = new XSSFWorkbook(inputStream);
@@ -37,7 +36,7 @@ public class ExcelPatientReader implements ItemReader<PatientImportDTO> {
         }
 
         Row row = (Row) rowIterator.next();
-        currentRowNum = row.getRowNum() + 1;
+        int currentRowNum = row.getRowNum() + 1;
 
         try {
             return PatientImportDTO.builder()

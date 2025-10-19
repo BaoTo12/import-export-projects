@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.nio.file.*;
 import java.time.LocalDateTime;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 @RestController
@@ -33,19 +33,25 @@ public class ImportController {
         if (file == null || file.isEmpty()) return ResponseEntity.badRequest().body(Map.of("error", "file is required"));
 
 
-        String original = file.getOriginalFilename();
+        String original = Paths.get(Objects.requireNonNull(file.getOriginalFilename())).getFileName().toString();
         UUID jobId = UUID.randomUUID();
+        // ? ➡️ Tạo đường dẫn tới thư mục tạm của hệ thống,
+        // ? trong đó có thư mục con excel-import và tiếp theo là thư mục theo jobId.
         Path dir = Paths.get(System.getProperty("java.io.tmpdir"), "excel-import", jobId.toString());
         Files.createDirectories(dir);
+        // ? ➡️ Xác định đường dẫn file đích và lưu file upload vào đó.
+        // ? nối dir/original
         Path target = dir.resolve(original);
-        file.transferTo(target.toFile());
+        // ? ố gắng di chuyển hoặc ghi nội dung upload vào file đích
+        try (InputStream in = file.getInputStream()) {
+            Files.copy(in, target, StandardCopyOption.REPLACE_EXISTING);
+        }
 
-
-// call service to parse preview (service will use Excel parser)
+        // call service to parse preview (service will use Excel parser)
         ImportPreviewResponse preview = importService.previewFromFile(target.toString());
 
 
-// save import job record with path and PREVIEWED status
+        // save import job record with path and PREVIEWED status
         ImportJob j = new ImportJob();
         j.setJobId(jobId);
         j.setFilename(original);
