@@ -15,4 +15,11 @@ public class RowResult {
     private String nationalId;
     private LocalDate dob;
     private List<String> errors = new ArrayList<>();
+
+    // ✅ New helper method
+    public static RowResult error(String message) {
+        RowResult rr = new RowResult();
+        rr.getErrors().add(message);
+        return rr;
+    }
 }
